@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HelloWorld :parentData.sync="myData" />
+    <button type="button" @click="send()">
+      保存
+    </button>
   </div>
 </template>
 
@@ -12,7 +14,25 @@ import HelloWorld from "@/components/HelloWorld.vue";
 export default {
   name: "Home",
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    myData: {
+      get() {
+        return this.$store.getters["getStoreData"];
+      },
+      set() {
+        return this.$store.setStoreData["setStoreData"];
+      },
+    },
+  },
+  methods: {
+    send() {
+      this.$store.dispatch("sendData", this.myData);
+    },
+  },
 };
 </script>
